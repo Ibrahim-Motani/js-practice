@@ -50,3 +50,5 @@ const mashUp = (str1, str2) => {
   }${str2.slice(2)}`;
   return modifiedString;
 };
+
+module.exports = { camelCase, replaceChar, mashUp };

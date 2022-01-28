@@ -1,19 +1,19 @@
+const isObject = obj => {
+  return Object.prototype.toString.call(obj) === "[object Object]";
+};
+
+const isEmpty = obj => {
+  return Object.keys(obj).length === 0;
+};
+
 const makeArrays = arr => {
   if (!arr) throw "Array does not exist";
   if (!Array.isArray(arr)) throw "Supplied argument is not an array";
   if (!arr.length) throw "Supplied array is empty";
   if (arr.length < 2) throw "Supplied array should have atleast 2 objects";
-
-  const isObject = obj => {
-    return Object.prototype.toString.call(obj) === "[object Object]";
-  };
   if (!arr.every(obj => isObject(obj)))
     throw "Elements in array are not object";
-
-  const isEmpty = obj => {
-    return Object.keys(obj).length === 0;
-  };
-  if (!arr.every(obj => isEmpty(obj))) throw "Some objects are empty";
+  if (arr.every(obj => isEmpty(obj))) throw "Some objects are empty";
 
   const result = [];
   for (let obj of arr) {
@@ -29,10 +29,6 @@ const makeArrays = arr => {
 
 const isDeepEqual = (obj1, obj2) => {
   if (!obj1 || !obj2) throw "Object does not exist";
-
-  const isObject = obj => {
-    return Object.prototype.toString.call(obj) === "[object Object]";
-  };
   if (isObject(obj1) === false || isObject(obj2) === false)
     throw "Supplied arguments are not objects";
 
@@ -53,21 +49,19 @@ const isDeepEqual = (obj1, obj2) => {
 };
 
 const computeObj = (obj, func) => {
-    if (!obj) throw "Object does not exist";
-    if (!func) throw "Function does not exist";
-    if (typeof func !== "function") throw "Supplied argument is not a function";
-    if (!Object.values(obj).every(value => typeof value === 'number')) throw "Object values are not numbers";
+  if (!obj) throw "Object does not exist";
+  if (!func) throw "Function does not exist";
+  if (typeof func !== "function") throw "Supplied argument is not a function";
+  if (!Object.values(obj).every(value => typeof value === "number"))
+    throw "Object values are not numbers";
+  if (!isObject(obj)) throw "Supplied argument is not an object";
 
-    const isObject = obj => {
-        return Object.prototype.toString.call(obj) === "[object Object]";
-    };
-    if (!isObject(obj))
-        throw "Supplied argument is not an object";
-    
-    const result = {};
-    for (let key in obj) {
-        result[key] = func(obj[key]);
-    }
+  const result = {};
+  for (let key in obj) {
+    result[key] = func(obj[key]);
+  }
 
-    return result;
+  return result;
 };
+
+module.exports = { makeArrays, isDeepEqual, computeObj };
