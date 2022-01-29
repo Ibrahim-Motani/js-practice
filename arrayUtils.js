@@ -1,86 +1,84 @@
-const mean = arr => {
-  if (!arr) throw "Supplied argument is not an array";
-  if (!Array.isArray(arr)) throw "Supplied argument is not an array";
-  if (arr.length < 1) throw "Supplied array is empty";
-  if (!arr.every(element => typeof element === "number"))
+const meanOfArray = array => {
+  if (!array) throw "Supplied argument is not an array";
+  if (!Array.isArray(array)) throw "Supplied argument is not an array";
+  if (array.length < 1) throw "Supplied array is empty";
+  if (!array.every(element => typeof element === "number"))
     throw "Supplied array consists of non numeric values";
 
-  const total = arr.reduce((acc, current) => (current = current + acc), 0);
-  const ans = total / arr.length;
-  return ans;
+  const sum = arr.reduce((acc, current) => (current = current + acc), 0);
+  const result = sum / array.length;
+  return result;
 };
 
-const medianSquare = arr => {
-  if (!arr) throw "Supplied argument is not an array";
-  if (!Array.isArray(arr)) throw "Supplied argument is not an array";
-  if (arr.length < 1) throw "Supplied array is empty";
-  if (!arr.every(element => typeof element === "number"))
+const medianOfSquares = array => {
+  if (!array) throw "Supplied argument is not an array";
+  if (!Array.isArray(array)) throw "Supplied argument is not an array";
+  if (array.length < 1) throw "Supplied array is empty";
+  if (!array.every(element => typeof element === "number"))
     throw "Supplied array consists of non numeric values";
 
-  const sortedArray = arr.sort((a, b) => a - b);
+  const sortedArray = array.sort((a, b) => a - b);
 
-  if (arr.length % 2 !== 0) {
+  if (array.length % 2 !== 0) {
     const medianIndex = Math.floor(sortedArray.length / 2);
     return sortedArray[medianIndex] ** 2;
   } else {
     const number1Index = sortedArray.length / 2 - 1;
     const number2Index = number1Index + 1;
-    const number1 = sortedArray[number1Index];
-    const number2 = sortedArray[number2Index];
-    return ((number1 + number2) / 2) ** 2;
+    return ((sortedArray[number1Index] + sortedArray[number2Index]) / 2) ** 2;
   }
 };
 
-const maxElement = arr => {
-  if (!arr) throw "Supplied argument is not an array";
-  if (!Array.isArray(arr)) throw "Supplied argument is not an array";
-  if (arr.length < 1) throw "Supplied array is empty";
+const maxElementInArray = array => {
+  if (!array) throw "Supplied argument is not an array";
+  if (!Array.isArray(array)) throw "Supplied argument is not an array";
+  if (array.length < 1) throw "Supplied array is empty";
 
-  let arrayValue = arr[0];
+  let arrayValue = array[0];
   let index = 0;
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i] > arrayValue) {
-      arrayValue = arr[i];
+  for (let i = 1; i < array.length; i++) {
+    if (array[i] > arrayValue) {
+      arrayValue = array[i];
       index = i;
     }
   }
   return { [arrayValue]: index };
 };
 
-const fill = (end, value) => {
-  if (!end) throw "End parameter does not exist";
-  if (!Number.isInteger(end)) throw "End parameter is not a number";
-  if (end < 1) throw "End parameter is not a positive integer";
+const fillArray = (upperLimit, character) => {
+  if (!upperLimit) throw "upperLimit parameter does not exist";
+  if (!Number.isInteger(upperLimit)) throw "upperLimit parameter is not a number";
+  if (upperLimit < 1) throw "upperLimit parameter is not a positive integer";
 
-  if (Number.isInteger(end) && value === undefined) {
-    const ans = [];
-    for (let i = 0; i < end; i++) ans[i] = i;
-    return ans;
+  if (Number.isInteger(upperLimit) && character === undefined) {
+    const result = [];
+    for (let i = 0; i < upperLimit; i++) result[i] = i;
+    return result;
   }
-  if (Number.isInteger(end) && typeof value === "string") {
-    const ans = [];
-    for (let i = 0; i < end; i++) ans[i] = value;
-    return ans;
+  if (Number.isInteger(upperLimit) && typeof character === "string") {
+    const result = [];
+    for (let i = 0; i < upperLimit; i++) result[i] = character;
+    return result;
   }
 };
 
-const countRepeating = arr => {
-  if (!arr) throw "Supplied argument is not an array";
-  if (!Array.isArray(arr)) throw "Supplied argument is not an array";
+const countRepeating = array => {
+  if (!array) throw "Supplied argument is not an array";
+  if (!Array.isArray(array)) throw "Supplied argument is not an array";
 
-  if (!arr.length) return {};
+  if (!array.length) return {};
 
-  let flag = false;
+  let flag = true;
   let countOfWords = {};
-  for (let word of arr) {
+  for (let word of array) {
     if (word in countOfWords) countOfWords[word] = countOfWords[word] + 1;
     else {
       countOfWords[word] = 1;
-      flag = true;
+      flag = false;
     }
   }
 
-  if (flag) {
+  if (!flag) {
     for (let word in countOfWords) {
       if (countOfWords[word] === 1) delete countOfWords[word];
     }
@@ -89,23 +87,23 @@ const countRepeating = arr => {
   return {};
 };
 
-const isEqual = (arr1, arr2) => {
-  if (!arr1 || !arr2)
+const isEqual = (array1, array2) => {
+  if (!array1 || !array2)
     throw "Supplied argument is not an array";
-  if (!Array.isArray(arr1) || !Array.isArray(arr2))
+  if (!Array.isArray(array1) || !Array.isArray(array2))
     throw "Supplied argument is not an array";
   
-  if (arr1.length !== arr2.length)
+  if (array1.length !== array2.length)
     return false;
-  if (arr1 === [] && arr2 === [])
+  if (array1 === [] && array2 === [])
     return true;
   
-  const sortedArr1 = arr1.sort().map(element => {
+  const sortedArr1 = array1.sort().map(element => {
     if (Array.isArray(element))
       return element.sort();
     return element;
   });
-  const sortedArr2 = arr2.sort().map(element => {
+  const sortedArr2 = array2.sort().map(element => {
     if (Array.isArray(element)) return element.sort();
     return element;
   });
@@ -126,5 +124,3 @@ const isEqual = (arr1, arr2) => {
     return true;
   return false;
 };
-
-module.exports = { mean, medianSquare, maxElement, isEqual, countRepeating, fill };

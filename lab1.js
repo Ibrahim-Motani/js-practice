@@ -39,13 +39,3 @@ const questionFour = function questionFour(fact) {
     return questionFour(fact - 1) * fact;
   }
 }
-
-module.exports = {
-  firstName: "Kevinkumar",
-  lastName: "Bhingaradiya",
-  studentId: "20009173",
-  questionOne,
-  questionTwo,
-  questionThree,
-  questionFour,
-};
